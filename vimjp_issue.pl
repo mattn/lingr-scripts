@@ -34,8 +34,8 @@ for my $issue (@{$dat}) {
 
     my $res = $ua->post('http://lingr.com/api/room/say', [], [
         room => 'vim',
-        bot  => 'vim_patch_notify_bot',
-        bot_verifier => sha1_hex('vim_patch_notify_bot' . $secret),
+        bot  => 'vim_jp',
+        bot_verifier => sha1_hex('vim_jp' . $secret),
         text => encode_utf8($msg),
     ]);
 }
