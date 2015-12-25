@@ -9,27 +9,25 @@ use JSON;
 use GDBM_File;
 use Digest::SHA1 qw/sha1_hex/;
 use Encode;
+use URI;
+use XML::Feed;
+use XML::Feed::Deduper;
 
 my $secret = shift;
 
-my $dup_path = '/home/mattn/tmp/dup-neocomplete-issue-lingr.db';
+my $dup_path = '/home/mattn/tmp/dup-vimjp-masuda-lingr.db';
 
-my %dup;
-unless ($ENV{DEBUG}) {
-    tie %dup, 'GDBM_File', $dup_path, &GDBM_WRCREAT, 0640;
-}
+my $feed = XML::Feed->parse(URI->new('http://anond.hatelabo.jp/keyword/vim?mode=rss'));
+my $deduper = XML::Feed::Deduper->new(
+    path => $dup_path,
+);
 
 my $ua = Furl->new(agent => $0, timeout => 10);
 $ua->env_proxy;
-my $res = $ua->get('https://api.github.com/repos/Shougo/neocomplete.vim/issues');
-$res->is_success or die;
-my $dat = decode_json($res->content);
-for my $issue (@{$dat}) {
-    next if $dup{$issue->{id}}++;
-
+for my $entry ($deduper->dedup($feed->entries)) {
     my $msg = sprintf("%s\n%s",
-        $issue->{title},
-        $issue->{html_url});
+        $entry->title,
+        $entry->link);
     print $msg;
 
 	my $res = $ua->post('http://lingr.com/api/room/say', [], [

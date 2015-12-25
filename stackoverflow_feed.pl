@@ -15,9 +15,9 @@ use XML::Feed::Deduper;
 
 my $secret = shift;
 
-my $dup_path = '/home/mattn/tmp/dup-mruby-feed-lingr.db';
+my $dup_path = '/home/mattn/tmp/dup-stackoverflow-vim-feed-lingr.db';
 
-my $feed = XML::Feed->parse(URI->new('http://b.hatena.ne.jp/search/tag?safe=on&q=mruby&users=1&mode=rss'));
+my $feed = XML::Feed->parse(URI->new('http://ja.stackoverflow.com/feeds/tag?tagnames=vim&sort=newest'));
 my $deduper = XML::Feed::Deduper->new(
     path => $dup_path,
 );
@@ -28,12 +28,12 @@ for my $entry ($deduper->dedup($feed->entries)) {
     my $msg = sprintf("%s\n%s",
         $entry->title,
         $entry->link);
-    print $msg;
+	#print "$msg\n";
 
 	my $res = $ua->post('http://lingr.com/api/room/say', [], [
-	    room => 'mruby',
-	    bot  => 'mruby_bot',
-	    bot_verifier => sha1_hex('mruby_bot' . $secret),
-	    text => encode_utf8($msg),
+	    room => 'vim',
+	    bot  => 'vim_jp',
+	    bot_verifier => sha1_hex('vim_jp' . $secret),
+	    text => $msg,
 	]) if $secret;
 }

@@ -37,5 +37,5 @@ for my $issue (@{$dat}) {
 	    bot  => 'mruby_bot',
 	    bot_verifier => sha1_hex('mruby_bot' . $secret),
 	    text => encode_utf8($msg),
-	]);
+	]) if $secret;
 }
