@@ -30,7 +30,7 @@ for my $issue (@{$dat}) {
     my $msg = sprintf("%s\n%s",
         $issue->{title},
         $issue->{html_url});
-    print $msg;
+    print "$msg\n";
 
     my $res = $ua->post('http://lingr.com/api/room/say', [], [
         room => 'vim',

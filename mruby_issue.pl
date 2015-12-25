@@ -30,12 +30,12 @@ for my $issue (@{$dat}) {
     my $msg = sprintf("%s\n%s",
         $issue->{title},
         $issue->{html_url});
-    print $msg;
+    print "$msg\n";
 
-	my $res = $ua->post('http://lingr.com/api/room/say', [], [
-	    room => 'mruby',
-	    bot  => 'mruby_bot',
-	    bot_verifier => sha1_hex('mruby_bot' . $secret),
-	    text => encode_utf8($msg),
-	]) if $secret;
+    my $res = $ua->post('http://lingr.com/api/room/say', [], [
+        room => 'mruby',
+        bot  => 'mruby_bot',
+        bot_verifier => sha1_hex('mruby_bot' . $secret),
+        text => encode_utf8($msg),
+    ]) if $secret;
 }
