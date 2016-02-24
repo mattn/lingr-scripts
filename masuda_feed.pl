@@ -15,7 +15,7 @@ use XML::Feed::Deduper;
 
 my $secret = shift;
 
-my $dup_path = '/home/mattn/tmp/dup-vimjp-masuda-lingr.db';
+my $dup_path = '/home/mattn/tmp/dup-masuda-feed-lingr.db';
 
 my $feed = XML::Feed->parse(URI->new('http://anond.hatelabo.jp/keyword/vim?mode=rss'));
 my $deduper = XML::Feed::Deduper->new(
