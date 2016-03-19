@@ -30,6 +30,7 @@ for my $entry ($deduper->dedup($feed->entries)) {
     $body =~ s/<.*?>//g;
     $body =~ s/^\s+//;
     $body = decode_entities($body);
+    $body =~ s/\r?\n$//;
     my $msg = sprintf("%s\n%s",
         $body,
         $entry->link);
