@@ -34,6 +34,6 @@ for my $entry ($deduper->dedup($feed->entries)) {
         room => 'vim',
         bot  => 'vim_jp',
         bot_verifier => sha1_hex('vim_jp' . $secret),
-        text => encode_utf8($msg),
+        text => $msg,
     ]) if $secret;
 }
