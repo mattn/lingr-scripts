@@ -20,6 +20,7 @@ my $dup_path = '/home/mattn/tmp/dup-qiita-feed-lingr.db';
 my $feed = XML::Feed->parse(URI->new('http://qiita.com/tags/Vim/feed'));
 my $deduper = XML::Feed::Deduper->new(
     path => $dup_path,
+    ignore_id => 1,
 );
 
 my $ua = Furl->new(agent => $0, timeout => 10);
