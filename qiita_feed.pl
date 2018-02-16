@@ -26,7 +26,7 @@ my $deduper = XML::Feed::Deduper->new(
     }
 );
 
-my $ua = Furl->new(agent => $0, timeout => 10);
+my $ua = Furl->new(agent => $0, timeout => 10, ssl_opts => { SSL_verify_mode => 0 });
 $ua->env_proxy;
 for my $entry ($deduper->dedup($feed->entries)) {
     my $msg = sprintf("%s\n%s",

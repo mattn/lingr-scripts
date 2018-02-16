@@ -19,7 +19,7 @@ unless ($ENV{DEBUG}) {
     tie %dup, 'GDBM_File', $dup_path, &GDBM_WRCREAT, 0640;
 }
 
-my $ua = Furl->new(agent => $0, timeout => 10);
+my $ua = Furl->new(agent => $0, timeout => 10, ssl_opts => { SSL_verify_mode => 0 });
 $ua->env_proxy;
 my $res = $ua->get('https://api.github.com/repos/Shougo/neocomplete.vim/issues');
 $res->is_success or die;
